@@ -13,14 +13,20 @@ import session from "express-session";
 import connectRedis from "connect-redis";
 import { MyContext } from "./types";
 import cors from "cors";
-import { sendEmail } from "./utils/sendEmail";
+import { createConnection } from "typeorm";
+import { Post } from "./entities/Post";
 import { User } from "./entities/User";
 
 const main = async () => {
-  // sendEmail("jpper@umich.edu", "Hello!");
-  const orm = await MikroORM.init(microConfig);
-  // await orm.em.nativeDelete(User, {});
-  await orm.getMigrator().up();
+  const conn = await createConnection({
+    type: "postgres",
+    database: "lireddit2",
+    username: "postgres",
+    password: "postgres",
+    logging: true,
+    synchronize: true,
+    entities: [Post, User],
+  });
 
   const app = express();
 
@@ -52,7 +58,7 @@ const main = async () => {
       resolvers: [HelloResolver, PostResolver, UserResolver],
       validate: false,
     }),
-    context: ({ req, res }): MyContext => ({ em: orm.em, req, res, redis }),
+    context: ({ req, res }): MyContext => ({ req, res, redis }),
   });
 
   apolloServer.applyMiddleware({
