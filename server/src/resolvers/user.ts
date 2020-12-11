@@ -40,7 +40,7 @@ class UserResponse {
 export class UserResolver {
   @FieldResolver(() => String)
   email(@Root() user: User, @Ctx() { req }: MyContext) {
-    // this is the current user and its ok to show them their own email
+    // This is the current user and it's ok to show them their own email
     if (req.session.userId === user.id) {
       return user.email;
     }
