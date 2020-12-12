@@ -56,6 +56,24 @@ export class PostResolver {
 
     // The user has voted on the post before && changing
     if (updoot && updoot.value !== realValue) {
+      await getConnection().transaction(async (tm) => {
+        await tm.query(
+          `
+          update updoot
+          set value = $1
+          where "postId" = $2 and "userId" = $3
+          `,
+          [realValue, postId, userId]
+        );
+        await tm.query(
+          `
+          update post
+          set points = points + $1
+          where id = $2
+          `,
+          [2 * realValue, postId]
+        );
+      });
     } else if (!updoot) {
       // Has never voted before
       await getConnection().transaction(async (tm) => {
