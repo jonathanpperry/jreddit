@@ -43,7 +43,6 @@ export const cursorPagination = (): Resolver => {
     }
 
     const fieldKey = `${fieldName}(${stringifyVariables(fieldArgs)})`;
-    // console.log("Key we created: ", fieldKey);
     const isItInTheCache = cache.resolve(
       cache.resolveFieldByKey(entityKey, fieldKey) as string,
       "posts"
@@ -116,7 +115,6 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
                 `,
                 { id: postId } as any
               );
-              // console.log("data: ", data);
               if (data) {
                 if (data.voteStatus === value) {
                   return;
