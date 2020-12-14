@@ -1,9 +1,9 @@
 import { Entity, BaseEntity, ManyToOne, PrimaryColumn, Column } from "typeorm";
-import { Post } from "./Post";
 import { User } from "./User";
+import { Post } from "./Post";
 
 // m to n
-// Many to many relationship
+// many to many
 // user <-> posts
 // user -> join table <- posts
 // user -> updoot <- posts
@@ -22,6 +22,8 @@ export class Updoot extends BaseEntity {
   @PrimaryColumn()
   postId!: number;
 
-  @ManyToOne(() => Post, (post) => post.updoots)
+  @ManyToOne(() => Post, (post) => post.updoots, {
+    onDelete: "CASCADE",
+  })
   post: Post;
 }
