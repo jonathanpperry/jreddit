@@ -1,17 +1,17 @@
-import { Box, Button, Flex, Link } from "@chakra-ui/react";
-import { Formik, Form } from "formik";
-import { NextPage } from "next";
-import { withUrqlClient } from "next-urql";
-import NextLink from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { InputField } from "../../components/InputField";
+import { NextPage } from "next";
 import { Wrapper } from "../../components/Wrapper";
-import { useChangePasswordMutation } from "../../generated/graphql";
-import { createUrqlClient } from "../../utils/createUrqlClient";
+import { Formik, Form } from "formik";
 import { toErrorMap } from "../../utils/toErrorMap";
+import { InputField } from "../../components/InputField";
+import { Box, Button, Link, Flex } from "@chakra-ui/react";
+import { useChangePasswordMutation } from "../../generated/graphql";
+import { useRouter } from "next/router";
+import { withUrqlClient } from "next-urql";
+import { createUrqlClient } from "../../utils/createUrqlClient";
+import NextLink from "next/link";
 
-const ChangePassword: NextPage<{ token: string }> = () => {
+const ChangePassword: any = () => {
   const router = useRouter();
   const [, changePassword] = useChangePasswordMutation();
   const [tokenError, setTokenError] = useState("");
@@ -61,7 +61,7 @@ const ChangePassword: NextPage<{ token: string }> = () => {
               isLoading={isSubmitting}
               colorScheme="teal"
             >
-              Change Password
+              Change password
             </Button>
           </Form>
         )}
@@ -70,4 +70,4 @@ const ChangePassword: NextPage<{ token: string }> = () => {
   );
 };
 
-export default withUrqlClient(createUrqlClient, { ssr: false })(ChangePassword);
+export default withUrqlClient(createUrqlClient)(ChangePassword);
