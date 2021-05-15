@@ -18,7 +18,7 @@ import { createUrqlClient } from "../utils/createUrqlClient";
 
 const Index = () => {
   const [variables, setVariables] = useState({
-    limit: 15,
+    limit: 5,
     cursor: null as string | null,
   });
 
@@ -27,8 +27,12 @@ const Index = () => {
   });
 
   if (!fetching && !data) {
-    return <div> You got query failed for some reason</div>;
-    <div>{error?.message}</div>;
+    return (
+      <div>
+        <div>you got query failed for some reason</div>
+        <div>{error?.message}</div>
+      </div>
+    );
   }
 
   return (

@@ -52,7 +52,7 @@ const main = async () => {
         httpOnly: true,
         sameSite: "lax",
         secure: __prod__, // cookie only works in https
-        domain: __prod__ ? ".redditclone.com" : undefined,
+        domain: __prod__ ? ".jreddit.xyz" : undefined,
       },
       saveUninitialized: false,
       secret: process.env.SESSION_SECRET,
